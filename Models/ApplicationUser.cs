@@ -1,12 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace PatoRestaurant.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
+        [Required]
+        [StringLength(60)]
+        public string Name { get; set; }
         
+        [StringLength(400)]
+        public string ProfilePicture { get; set; }        
     }
 }

@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PatoRestaurant.Models
 {
-    [Table("Category")]
-    public class Category
+    [Table("Review")]
+    public class Review
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -15,12 +15,19 @@ namespace PatoRestaurant.Models
         [StringLength(30, ErrorMessage = "O {0} deve possuir no maximo {1} caracteres")]
         public string Name { get; set; }
 
-        [Display(Name = "Foto Home")]
+        [Display(Name = "Texto da avaliaçao")]
+        [StringLength(2000, ErrorMessage = "O {0} deve possuir no maximo {1} caracteres")]
+        public string ReviewText { get; set; }
+
+        [Display(Name = "Data da Avaliação")]
+        public DateTime ReviewDate { get; set; } = DateTime.Now;
+
+        [Display(Name = "Foto do avaliador")]
         [StringLength(400)]
         public string Image { get; set; }
 
-        [Display(Name = "Banner Menu")]
-        [StringLength(400)]
-        public string Banner { get; set; }
+        [Display(Name ="Nota")]
+        public byte Rating { get; set; }
+
     }
 }
