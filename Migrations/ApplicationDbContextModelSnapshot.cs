@@ -283,7 +283,6 @@ namespace PatoRestaurant.Migrations
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasMaxLength(100)
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
@@ -302,23 +301,18 @@ namespace PatoRestaurant.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<byte>("StatusReservationId")
-                        .HasColumnType("tinyint unsigned");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("StatusReservationId");
 
                     b.ToTable("Product");
                 });
 
             modelBuilder.Entity("PatoRestaurant.Models.Reservation", b =>
                 {
-                    b.Property<byte>("Id")
+                    b.Property<ushort>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint unsigned");
+                        .HasColumnType("smallint unsigned");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
@@ -327,7 +321,7 @@ namespace PatoRestaurant.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<byte>("Guest")
+                    b.Property<byte>("Guests")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<string>("Name")
@@ -355,9 +349,9 @@ namespace PatoRestaurant.Migrations
 
             modelBuilder.Entity("PatoRestaurant.Models.Review", b =>
                 {
-                    b.Property<byte>("Id")
+                    b.Property<ushort>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint unsigned");
+                        .HasColumnType("smallint unsigned");
 
                     b.Property<string>("Image")
                         .HasMaxLength(400)
@@ -365,8 +359,8 @@ namespace PatoRestaurant.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
+                        .HasMaxLength(60)
+                        .HasColumnType("varchar(60)");
 
                     b.Property<byte>("Rating")
                         .HasColumnType("tinyint unsigned");
@@ -402,8 +396,8 @@ namespace PatoRestaurant.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)");
+                        .HasMaxLength(60)
+                        .HasColumnType("varchar(60)");
 
                     b.HasKey("Id");
 
@@ -429,7 +423,7 @@ namespace PatoRestaurant.Migrations
                         new
                         {
                             Id = (byte)1,
-                            Name = "Aguardando confirmação"
+                            Name = "Aguardando Confirmação"
                         },
                         new
                         {
@@ -439,7 +433,7 @@ namespace PatoRestaurant.Migrations
                         new
                         {
                             Id = (byte)3,
-                            Name = " Reserva Cancelada"
+                            Name = "Reserva Cancelada"
                         },
                         new
                         {
@@ -523,15 +517,7 @@ namespace PatoRestaurant.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PatoRestaurant.Models.StatusReservation", "StatusReservation")
-                        .WithMany()
-                        .HasForeignKey("StatusReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("StatusReservation");
                 });
 
             modelBuilder.Entity("PatoRestaurant.Models.Reservation", b =>

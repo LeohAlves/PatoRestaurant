@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\etec\\Desktop\\PatoRestaurant\\PatoRestaurant.csproj": {}
+    "Q:\\Professores\\Gallo\\2022\\2º DS\\PW\\Turma B\\PatoRestaurant\\PatoRestaurant.csproj": {}
   },
   "projects": {
-    "C:\\Users\\etec\\Desktop\\PatoRestaurant\\PatoRestaurant.csproj": {
+    "Q:\\Professores\\Gallo\\2022\\2º DS\\PW\\Turma B\\PatoRestaurant\\PatoRestaurant.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\etec\\Desktop\\PatoRestaurant\\PatoRestaurant.csproj",
+        "projectUniqueName": "Q:\\Professores\\Gallo\\2022\\2º DS\\PW\\Turma B\\PatoRestaurant\\PatoRestaurant.csproj",
         "projectName": "PatoRestaurant",
-        "projectPath": "C:\\Users\\etec\\Desktop\\PatoRestaurant\\PatoRestaurant.csproj",
-        "packagesPath": "C:\\Users\\etec\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\etec\\Desktop\\PatoRestaurant\\obj\\",
+        "projectPath": "Q:\\Professores\\Gallo\\2022\\2º DS\\PW\\Turma B\\PatoRestaurant\\PatoRestaurant.csproj",
+        "packagesPath": "C:\\Users\\jose.gallo\\.nuget\\packages\\",
+        "outputPath": "Q:\\Professores\\Gallo\\2022\\2º DS\\PW\\Turma B\\PatoRestaurant\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\etec\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jose.gallo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

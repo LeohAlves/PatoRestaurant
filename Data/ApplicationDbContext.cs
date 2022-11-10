@@ -5,7 +5,7 @@ namespace PatoRestaurant.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
     {
     }
 
@@ -23,28 +23,28 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
         #region Seed StatusReservation
         List<StatusReservation> listStatusReservation = new()
-         {
+        {
             new StatusReservation()
             {
                 Id = 1,
-                Name ="Aguardando confirmação"
+                Name = "Aguardando Confirmação"
             },
             new StatusReservation()
             {
                 Id = 2,
-                Name ="Reserva Confirmada"
+                Name = "Reserva Confirmada"
             },
             new StatusReservation()
             {
                 Id = 3,
-                Name =" Reserva Cancelada"
+                Name = "Reserva Cancelada"
             },
             new StatusReservation()
             {
                 Id = 4,
-                Name ="Reserva Reagendada"
+                Name = "Reserva Reagendada"
             }
-         };
+        };
         builder.Entity<StatusReservation>().HasData(listStatusReservation);
         #endregion
 
@@ -54,36 +54,37 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             new Category()
             {
                 Id = 1,
-                Name ="Entradas"
+                Name = "Entradas"
             },
             new Category()
             {
                 Id = 2,
-                Name ="Principal"
+                Name = "Principal"
             },
             new Category()
             {
                 Id = 3,
-                Name ="Bebidas"
+                Name = "Bebidas"
             },
             new Category()
             {
                 Id = 4,
-                Name ="Sobremesas"
+                Name = "Sobremesas"
             },
             new Category()
             {
                 Id = 5,
-                Name ="Almoço"
+                Name = "Almoço"
             },
             new Category()
             {
                 Id = 6,
-                Name ="Jantar"
+                Name = "Jantar"
             }
         };
         builder.Entity<Category>().HasData(listCategory);
         #endregion
+
     }
 
 }
