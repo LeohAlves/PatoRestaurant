@@ -131,7 +131,7 @@ namespace PatoRestaurant.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Usuário e/ou Senha inválidos!!!");
+                    ModelState.AddModelError("", "Usuário e/ou Senha inválidos!!");
                     return Page();
                 }
             }
