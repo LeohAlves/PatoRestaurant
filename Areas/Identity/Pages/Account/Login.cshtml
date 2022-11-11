@@ -101,15 +101,17 @@
   
   <script>
     let mensagenErro = '';
-    $(".asp-validation-summary-errors ul li").each(function () {
+    $(".validation-summary-errors ul li").each(function() {
       mensagenErro += $(this).text() + '<br/>';
     });
-    if (mensagenErro != '') {
+    if (mensagenErro != '') 
+    {
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!'
+        title: 'Problemas ao entrar',
+        html: mensagenErro,
       });
+    }
   </script>
 </body>
 
