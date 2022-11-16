@@ -11,7 +11,7 @@ using PatoRestaurant.Data;
 namespace PatoRestaurant.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221110223714_Criar-Banco")]
+    [Migration("20221116232404_Criar-Banco")]
     partial class CriarBanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,22 @@ namespace PatoRestaurant.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c6e64b8f-d032-4682-8a85-a2a647d4dd4f",
+                            ConcurrencyStamp = "2100fdb9-abbc-4ff2-ac57-32cd99e30701",
+                            Name = "Administrador",
+                            NormalizedName = "ADMINISTRADOR"
+                        },
+                        new
+                        {
+                            Id = "d6c15e6c-c670-485c-b272-a69c2b9e744d",
+                            ConcurrencyStamp = "dac0516b-926e-4bd6-baaf-5b68b04eb832",
+                            Name = "Usuário",
+                            NormalizedName = "USUÁRIO"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -128,6 +144,13 @@ namespace PatoRestaurant.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "c86e4fe2-167c-4db8-8f83-c00f0304c49f",
+                            RoleId = "c6e64b8f-d032-4682-8a85-a2a647d4dd4f"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -220,6 +243,26 @@ namespace PatoRestaurant.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c86e4fe2-167c-4db8-8f83-c00f0304c49f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a4ee9ab9-240a-4fc8-9f61-224fb025adc6",
+                            Email = "Admin@patorestaurant.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "L&K",
+                            NormalizedEmail = "ADMIN@PATORESTAURANT.COM",
+                            NormalizedUserName = "ADMIN@PATORESTAURANT.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAvZW2nHiLfl+Lqsvj0TtWYFTHCHSDeJAPHjLD1myp5bt6RCWQ+Y3trjz3keFqz/TQ==",
+                            PhoneNumberConfirmed = false,
+                            ProfilePicture = "\\img\\avatar.png",
+                            SecurityStamp = "48412952",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin@patorestaurant.com"
+                        });
                 });
 
             modelBuilder.Entity("PatoRestaurant.Models.Category", b =>

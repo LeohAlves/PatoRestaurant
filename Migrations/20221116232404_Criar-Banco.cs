@@ -331,6 +331,20 @@ namespace PatoRestaurant.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "c6e64b8f-d032-4682-8a85-a2a647d4dd4f", "2100fdb9-abbc-4ff2-ac57-32cd99e30701", "Administrador", "ADMINISTRADOR" },
+                    { "d6c15e6c-c670-485c-b272-a69c2b9e744d", "dac0516b-926e-4bd6-baaf-5b68b04eb832", "Usuário", "USUÁRIO" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "c86e4fe2-167c-4db8-8f83-c00f0304c49f", 0, "a4ee9ab9-240a-4fc8-9f61-224fb025adc6", "Admin@patorestaurant.com", true, false, null, "L&K", "ADMIN@PATORESTAURANT.COM", "ADMIN@PATORESTAURANT.COM", "AQAAAAEAACcQAAAAEAvZW2nHiLfl+Lqsvj0TtWYFTHCHSDeJAPHjLD1myp5bt6RCWQ+Y3trjz3keFqz/TQ==", null, false, "\\img\\avatar.png", "48412952", false, "Admin@patorestaurant.com" });
+
+            migrationBuilder.InsertData(
                 table: "Category",
                 columns: new[] { "Id", "Banner", "Image", "Name" },
                 values: new object[,]
@@ -353,6 +367,11 @@ namespace PatoRestaurant.Migrations
                     { (byte)3, "Reserva Cancelada" },
                     { (byte)4, "Reserva Reagendada" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "c6e64b8f-d032-4682-8a85-a2a647d4dd4f", "c86e4fe2-167c-4db8-8f83-c00f0304c49f" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
