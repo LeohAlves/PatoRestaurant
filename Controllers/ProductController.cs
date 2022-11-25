@@ -7,22 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PatoRestaurant.Data;
 using PatoRestaurant.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace PatoRestaurant.Controllers
 {
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
         }
 
         // GET: Product
         public IActionResult Index()
         {
-            
+
             return View();
         }
         //GET: Product/GetAll
@@ -31,8 +36,10 @@ namespace PatoRestaurant.Controllers
             var products = await _context.Products
             .Include(p => p.Category)
             .ToListAsync();
-            return Json(new {data = products} );
+            return Json(new { data = products });
         }
+
+
 
         // GET: Product/Details/5
         public async Task<IActionResult> Details(ushort? id)
@@ -65,10 +72,21 @@ namespace PatoRestaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,CreatedDate,CategoryId,Image")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,CreatedDate,CategoryId,Image")] Product product, IFormFile file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    string wwwroot = _hostEnvironment.WebRootPath;
+                    string fileName = Guid.NewGuid().ToString() + file.FileName;
+                    string newfile = Path.Combine(wwwroot, @"img\products", fileName);
+                    using (var stream = new FileStream(newfile, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    product.Image = @"\img\products\" + fileName;
+                }
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -99,7 +117,7 @@ namespace PatoRestaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ushort id, [Bind("Id,Name,Description,Price,CreatedDate,CategoryId,Image")] Product product)
+        public async Task<IActionResult> Edit(ushort id, [Bind("Id,Name,Description,Price,CreatedDate,CategoryId,Image")] Product product, IFormFile file)
         {
             if (id != product.Id)
             {
@@ -108,6 +126,25 @@ namespace PatoRestaurant.Controllers
 
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    string wwwroot = _hostEnvironment.WebRootPath;
+                    string fileName = Guid.NewGuid().ToString() + file.FileName;
+                    string newfile = Path.Combine(wwwroot, @"img\products", fileName);
+                    using (var stream = new FileStream(newfile, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    if (product.Image != null)
+                    {
+                        string oldFile = Path.Combine(wwwroot,product.Image.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldFile))
+                        {
+                           System.IO.File.Delete(oldFile); 
+                        } 
+                    }
+                    product.Image = @"\img\products\" + fileName;
+                }
                 try
                 {
                     _context.Update(product);
@@ -130,47 +167,32 @@ namespace PatoRestaurant.Controllers
             return View(product);
         }
 
-        // GET: Product/Delete/5
+        // DELETE: Product/Delete/5
+        [HttpDelete]
         public async Task<IActionResult> Delete(ushort? id)
         {
-            if (id == null || _context.Products == null)
-            {
-                return NotFound();
-            }
-
             var product = await _context.Products
-                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
-                return NotFound();
+                return Json(new { success = false, Message = "Produto nAo encontrado" });
             }
-
-            return View(product);
-        }
-
-        // POST: Product/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(ushort id)
-        {
-            if (_context.Products == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
-            }
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
+            try
             {
                 _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch
+            {
+                return Json(new { success = false, message = "Ocorreu um ploblma inesperado! Avise o suporte!" });
+            }
+
+            return Json(new { success = true, message = "Produto excluido com Sucesso" });
         }
 
         private bool ProductExists(ushort id)
         {
-          return _context.Products.Any(e => e.Id == id);
+            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

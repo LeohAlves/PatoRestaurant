@@ -1,5 +1,5 @@
 function Delete(url){
-    Swal.fire({
+/* sweeAlert*/   Swal.fire({
         title: 'Confirma a Exclusão?',
         text: 'Esta ação não pode ser revertida!',
         icon: 'question',
